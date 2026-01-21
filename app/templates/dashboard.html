@@ -127,15 +127,49 @@
                 </div>
             </div>
 
-            <!-- Graph Section (Placeholder) -->
+            <!-- Graph Section -->
             <div class="mt-8 bg-white rounded-lg shadow-sm p-6">
                 <h3 class="text-lg font-semibold text-gray-800 mb-4">Enrollment Overview</h3>
-                <div class="h-64 bg-gray-50 rounded flex items-center justify-center text-gray-400">
-                    Graph Placeholder - Chart.js integration needed
+                <div class="h-64">
+                    <canvas id="enrollmentChart"></canvas>
                 </div>
             </div>
 
         </main>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('enrollmentChart').getContext('2d');
+    const enrollmentChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+                label: 'New Students',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                borderColor: 'rgba(59, 130, 246, 1)',
+                borderWidth: 2,
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
 {% endblock %}

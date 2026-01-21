@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex h-screen bg-gray-100 overflow-hidden">
+    {% include "includes/sidebar.html" %}
+
+    <div class="flex-1 flex flex-col overflow-hidden">
+        {% include "includes/header.html" %}
+
+        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
+            <h1 class="text-2xl font-semibold text-gray-800 mb-6">Attendance Records</h1>
+
+            <div class="bg-white shadow-md rounded my-6">
+                <table class="min-w-full table-auto">
+                    <thead>
+                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                            <th class="py-3 px-6 text-left">Date</th>
+                            <th class="py-3 px-6 text-left">Student</th>
+                            <th class="py-3 px-6 text-left">Status</th>
+                            <th class="py-3 px-6 text-left">Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-600 text-sm font-light">
+                        {% for record in attendance_records.items %}
+                        <tr class="border-b border-gray-200 hover:bg-gray-100">
+                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                {{ record.date.strftime('%Y-%m-%d') }}
+                            </td>
+                            <td class="py-3 px-6 text-left">
+                                {{ record.student.name if record.student else 'Unknown' }}
+                            </td>
+                            <td class="py-3 px-6 text-left">
+                                <span
+                                    class="{{ 'text-green-600 bg-green-200' if record.status == 'Present' else 'text-red-600 bg-red-200' }} py-1 px-3 rounded-full text-xs">
+                                    {{ record.status }}
+                                </span>
+                            </td>
+                            <td class="py-3 px-6 text-left">
+                                {{ record.remarks or '-' }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex justify-center mt-4">
+                {% if attendance_records.has_prev %}
+                <a href="{{ url_for('attendance.index', page=attendance_records.prev_num) }}"
+                    class="px-4 py-2 mx-1 bg-gray-200 rounded hover:bg-gray-300">Prev</a>
+                {% endif %}
+                <span class="px-4 py-2 mx-1 text-gray-700">Page {{ attendance_records.page }} of {{
+                    attendance_records.pages }}</span>
+                {% if attendance_records.has_next %}
+                <a href="{{ url_for('attendance.index', page=attendance_records.next_num) }}"
+                    class="px-4 py-2 mx-1 bg-gray-200 rounded hover:bg-gray-300">Next</a>
+                {% endif %}
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}

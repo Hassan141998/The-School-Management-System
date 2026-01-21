@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex h-screen bg-gray-100 overflow-hidden">
+    {% include "includes/sidebar.html" %}
+
+    <div class="flex-1 flex flex-col overflow-hidden">
+        {% include "includes/header.html" %}
+
+        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
+            <h1 class="text-2xl font-semibold text-gray-800 mb-6">Settings</h1>
+
+            <div class="bg-white shadow-md rounded-lg p-6 max-w-2xl">
+                <form method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+                    <h2 class="text-xl font-medium mb-4">Profile Settings</h2>
+                    <div class="grid grid-cols-1 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Username</label>
+                            <input type="text" value="{{ current_user.username }}" disabled
+                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 bg-gray-50 text-gray-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" value="{{ current_user.email }}" disabled
+                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 bg-gray-50 text-gray-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Role</label>
+                            <input type="text" value="{{ current_user.role }}" disabled
+                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 bg-gray-50 text-gray-500 sm:text-sm">
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-gray-200">
+                        <button type="submit"
+                            class="bg-primary text-white px-4 py-2 rounded shadow hover:bg-blue-700">Save
+                            Changes</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}

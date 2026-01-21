@@ -36,4 +36,13 @@ def create_app(config_name='default'):
     from app.routes.fees import fees_bp
     app.register_blueprint(fees_bp, url_prefix='/fees')
 
+    from app.routes.attendance import attendance_bp
+    app.register_blueprint(attendance_bp, url_prefix='/attendance')
+
+    from app.routes.exams import exams_bp
+    app.register_blueprint(exams_bp, url_prefix='/exams')
+
+    from app.routes.settings import settings_bp
+    app.register_blueprint(settings_bp, url_prefix='/settings')
+
     return app

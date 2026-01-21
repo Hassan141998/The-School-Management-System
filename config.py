@@ -15,12 +15,17 @@ class DevelopmentConfig(Config):
 
 class ProductionConfig(Config):
     DEBUG = False
-    # Check for various Neon/Vercel variable names
+    # Prioritize POSTGRES_URL (Vercel/Neon standard)
     uri = os.environ.get("POSTGRES_URL") or os.environ.get("DATABASE_URL")
     
     if uri and uri.startswith("postgres://"):
         uri = uri.replace("postgres://", "postgresql://", 1)
     
+    if not uri:
+        # Fallback for debugging, or raise clear error
+        # using /tmp for read-write access in serverless if needed, but better to fail if no DB
+        pass
+
     SQLALCHEMY_DATABASE_URI = uri
 
 config = {

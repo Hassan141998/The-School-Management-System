@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex h-screen bg-gray-100 overflow-hidden">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow-md hidden md:block">
+        <div class="p-6 flex items-center justify-center">
+            <div class="text-2xl font-bold text-primary flex items-center">
+                <i class="fas fa-graduation-cap mr-2"></i> EduManager
+            </div>
+        </div>
+        <nav class="mt-6">
+            <a href="{{ url_for('dashboard.index') }}"
+                class="flex items-center px-6 py-3 text-gray-700 bg-gray-100 border-r-4 border-primary">
+                <i class="fas fa-home w-6"></i>
+                <span class="font-medium">Dashboard</span>
+            </a>
+            <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                <i class="fas fa-user-graduate w-6"></i>
+                <span class="font-medium">Students</span>
+            </a>
+            <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                <i class="fas fa-chalkboard-teacher w-6"></i>
+                <span class="font-medium">Teachers</span>
+            </a>
+            <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                <i class="fas fa-building w-6"></i>
+                <span class="font-medium">Departments</span>
+            </a>
+            <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                <i class="fas fa-money-bill-wave w-6"></i>
+                <span class="font-medium">Fees</span>
+            </a>
+            <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                <i class="fas fa-calendar-alt w-6"></i>
+                <span class="font-medium">Attendance</span>
+            </a>
+            <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                <i class="fas fa-clipboard-list w-6"></i>
+                <span class="font-medium">Exams</span>
+            </a>
+            <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50 hover:text-gray-900">
+                <i class="fas fa-cog w-6"></i>
+                <span class="font-medium">Settings</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- Header -->
+        <header class="flex justify-between items-center py-4 px-6 bg-white shadow-sm">
+            <div class="flex items-center">
+                <button class="md:hidden text-gray-500 focus:outline-none">
+                    <i class="fas fa-bars fa-lg"></i>
+                </button>
+                <h2 class="text-xl font-semibold text-gray-800 ml-4">Dashboard</h2>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                    <i class="fas fa-bell fa-lg"></i>
+                </button>
+                <div class="relative">
+                    <button class="flex items-center space-x-2 focus:outline-none">
+                        <img class="h-8 w-8 rounded-full object-cover"
+                            src="https://ui-avatars.com/api/?name={{ current_user.username }}" alt="User avatar">
+                        <span class="text-sm font-medium text-gray-700">{{ current_user.username }}</span>
+                        <i class="fas fa-chevron-down text-xs text-gray-500"></i>
+                    </button>
+                    <!-- Dropdown mock (hidden for now) -->
+                </div>
+                <a href="{{ url_for('auth.logout') }}"
+                    class="text-sm text-red-600 hover:text-red-800 font-medium ml-4">Logout</a>
+            </div>
+        </header>
+
+        <!-- Main Content Body -->
+        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-primary">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-blue-100 text-primary">
+                            <i class="fas fa-user-graduate fa-lg"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Total Students</p>
+                            <h3 class="text-2xl font-bold text-gray-800">{{ stats.total_students }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-secondary">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-green-100 text-secondary">
+                            <i class="fas fa-chalkboard-teacher fa-lg"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Total Teachers</p>
+                            <h3 class="text-2xl font-bold text-gray-800">{{ stats.total_teachers }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-accent">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-purple-100 text-accent">
+                            <i class="fas fa-building fa-lg"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Departments</p>
+                            <h3 class="text-2xl font-bold text-gray-800">{{ stats.active_departments }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-warning">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-yellow-100 text-warning">
+                            <i class="fas fa-money-bill-wave fa-lg"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Pending Fees</p>
+                            <h3 class="text-2xl font-bold text-gray-800">${{ stats.pending_fees }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Recent Activity -->
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Recent Activity</h3>
+                    <div class="flow-root">
+                        <ul class="-mb-8">
+                            {% for activity in recent_activities %}
+                            <li>
+                                <div class="relative pb-8">
+                                    {% if not loop.last %}
+                                    <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200"
+                                        aria-hidden="true"></span>
+                                    {% endif %}
+                                    <div class="relative flex space-x-3">
+                                        <div>
+                                            <span
+                                                class="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center ring-8 ring-white">
+                                                <i class="fas {{ activity.icon }} {{ activity.color }}"></i>
+                                            </span>
+                                        </div>
+                                        <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                            <div>
+                                                <p class="text-sm text-gray-500">{{ activity.desc }} <a href="#"
+                                                        class="font-medium text-gray-900">{{ activity.title }}</a></p>
+                                            </div>
+                                            <div class="text-right text-sm whitespace-nowrap text-gray-500">
+                                                <time datetime="{{ activity.time }}">{{ activity.time }}</time>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button
+                            class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-150">
+                            <i class="fas fa-user-plus text-primary text-2xl mb-2"></i>
+                            <span class="text-sm font-medium text-gray-700">Add Student</span>
+                        </button>
+                        <button
+                            class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-150">
+                            <i class="fas fa-file-invoice-dollar text-green-600 text-2xl mb-2"></i>
+                            <span class="text-sm font-medium text-gray-700">Collect Fees</span>
+                        </button>
+                        <button
+                            class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-150">
+                            <i class="fas fa-user-check text-purple-600 text-2xl mb-2"></i>
+                            <span class="text-sm font-medium text-gray-700">Attendance</span>
+                        </button>
+                        <button
+                            class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-150">
+                            <i class="fas fa-poll-h text-orange-500 text-2xl mb-2"></i>
+                            <span class="text-sm font-medium text-gray-700">View Reports</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Graph Section (Placeholder) -->
+            <div class="mt-8 bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Enrollment Overview</h3>
+                <div class="h-64 bg-gray-50 rounded flex items-center justify-center text-gray-400">
+                    Graph Placeholder - Chart.js integration needed
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+{% endblock %}

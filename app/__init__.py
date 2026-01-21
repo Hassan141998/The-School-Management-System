@@ -1,0 +1,27 @@
+from flask import Flask
+from config import config
+from app.extensions import db, login_manager, migrate, mail, csrf
+
+def create_app(config_name='default'):
+    app = Flask(__name__)
+    app.config.from_object(config[config_name])
+
+    # Initialize extensions
+    db.init_app(app)
+    login_manager.init_app(app)
+    migrate.init_app(app, db)
+    mail.init_app(app)
+    csrf.init_app(app)
+
+    # Login manager configuration
+    login_manager.login_view = 'auth.login'
+    login_manager.login_message_category = 'info'
+
+    # Register blueprints
+    from app.routes.auth import auth_bp
+    app.register_blueprint(auth_bp, url_prefix='/auth')
+
+    from app.routes.dashboard import dashboard_bp
+    app.register_blueprint(dashboard_bp)
+
+    return app

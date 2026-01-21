@@ -15,7 +15,9 @@ class DevelopmentConfig(Config):
 
 class ProductionConfig(Config):
     DEBUG = False
-    uri = os.environ.get("DATABASE_URL")  # or other relevant config var
+    # Check for various Neon/Vercel variable names
+    uri = os.environ.get("POSTGRES_URL") or os.environ.get("DATABASE_URL")
+    
     if uri and uri.startswith("postgres://"):
         uri = uri.replace("postgres://", "postgresql://", 1)
     

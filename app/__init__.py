@@ -24,4 +24,16 @@ def create_app(config_name='default'):
     from app.routes.dashboard import dashboard_bp
     app.register_blueprint(dashboard_bp)
 
+    from app.routes.students import students_bp
+    app.register_blueprint(students_bp, url_prefix='/students')
+
+    from app.routes.teachers import teachers_bp
+    app.register_blueprint(teachers_bp, url_prefix='/teachers')
+
+    from app.routes.departments import departments_bp
+    app.register_blueprint(departments_bp, url_prefix='/departments')
+
+    from app.routes.fees import fees_bp
+    app.register_blueprint(fees_bp, url_prefix='/fees')
+
     return app

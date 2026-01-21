@@ -1,0 +1,25 @@
+<!-- Header -->
+<header class="flex justify-between items-center py-4 px-6 bg-white shadow-sm">
+    <div class="flex items-center">
+        <button class="md:hidden text-gray-500 focus:outline-none">
+            <i class="fas fa-bars fa-lg"></i>
+        </button>
+        <h2 class="text-xl font-semibold text-gray-800 ml-4">{{ title if title else 'Dashboard' }}</h2>
+    </div>
+    <div class="flex items-center space-x-4">
+        <button class="text-gray-500 hover:text-gray-700 focus:outline-none">
+            <i class="fas fa-bell fa-lg"></i>
+        </button>
+        <div class="relative">
+            <button class="flex items-center space-x-2 focus:outline-none">
+                <img class="h-8 w-8 rounded-full object-cover"
+                    src="https://ui-avatars.com/api/?name={{ current_user.username }}" alt="User avatar">
+                <span class="text-sm font-medium text-gray-700">{{ current_user.username }}</span>
+                <i class="fas fa-chevron-down text-xs text-gray-500"></i>
+            </button>
+            <!-- Dropdown mock (hidden for now) -->
+        </div>
+        <a href="{{ url_for('auth.logout') }}"
+            class="text-sm text-red-600 hover:text-red-800 font-medium ml-4">Logout</a>
+    </div>
+</header>

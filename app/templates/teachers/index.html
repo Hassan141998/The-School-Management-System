@@ -10,7 +10,20 @@
         <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-2xl font-semibold text-gray-800">Teachers</h1>
-                <a href="#" class="px-4 py-2 bg-primary text-white rounded hover:bg-blue-700">Add Teacher</a>
+                <div class="space-x-2">
+                    <a href="{{ url_for('export.teachers_pdf') }}"
+                        class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                        <i class="fas fa-file-pdf mr-2"></i> PDF
+                    </a>
+                    <a href="{{ url_for('export.teachers_word') }}"
+                        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                        <i class="fas fa-file-word mr-2"></i> Word
+                    </a>
+                    <a href="{{ url_for('teachers.add') }}"
+                        class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+                        <i class="fas fa-plus mr-2"></i> Add Teacher
+                    </a>
+                </div>
             </div>
 
             <div class="bg-white shadow-md rounded my-6">

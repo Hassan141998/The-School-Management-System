@@ -45,4 +45,7 @@ def create_app(config_name='default'):
     from app.routes.settings import settings_bp
     app.register_blueprint(settings_bp, url_prefix='/settings')
 
+    from app.routes.export import export_bp
+    app.register_blueprint(export_bp, url_prefix='/export')
+
     return app
